@@ -1,0 +1,3901 @@
+			/*C++ program to demonstrate constructors
+
+Output
+Default Constructor called                                                                                              
+Geek id is: -1                                                                                                          
+Parameterized Constructor called                                                                                        
+Geek id is: 21 
+*/
+
+#include <iostream>
+using namespace std;
+
+class student{int age;
+int roll_no;
+public:
+student(int a,int r){
+    age=a;
+    roll_no=r;
+}
+void display(){
+    cout<<"age is "<<age<<" roll_no"<<"  "<< roll_no<<endl;
+}
+};
+
+	
+// int main() {
+//  student s(20,700);
+//  student *sptr;
+//  sptr=&s;
+//  sptr->display();
+
+// }
+int main(){
+    student *sptr;
+    sptr=new student(18,90);
+    sptr->display();
+}
+*************************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int d){
+        data=d;
+        next=NULL;
+    }
+    void display(){
+        cout<<data<<endl;
+    }
+    
+};
+class LinkedList{
+    public:
+    Node*hptr=NULL;
+    void append(int d){
+    if(hptr==NULL){
+       Node*temp= new Node(d);
+        hptr=temp;
+    }
+    else{
+        Node*temp=hptr;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        Node*newnode=new Node(d);
+        temp->next=newnode;
+    }
+    }
+    void Display(){
+        Node*temp=hptr;
+        while(temp!=NULL){
+            temp->display();
+            temp=temp->next;
+        }
+    }
+};
+int main(){
+    LinkedList l;
+    
+    int a;
+  for(int i=0;i<3;i++){
+      cin>>a;
+      l.append(a);
+  }
+    l.Display();
+}
+*********************************************************************************************************************************************************************
+Delete without head pointer 
+class Solution
+{
+    public:
+    //Function to delete a node without any reference to head pointer.
+    void deleteNode(Node *del)
+    {
+        //storing the node next to given node in a pointer.	
+    	Node* temp = del->next;
+    	
+    	//copying the data of pointer in the given current node.
+    	del->data = temp->data;
+    	
+    	//storing the next node to pointer in link part of current node.
+    	del->next = temp->next;
+
+    	// freeing memory.
+    	free(temp);
+    	
+    }
+};
+**************************************************************************************************************************************************************************
+Delete Alternate Nodes in linked lsit
+void deleteAlt(struct Node *head){
+   Node*r=head;
+   while(r!=NULL){
+       if(r->next!=NULL){
+           r->next=r->next->next;
+       }
+       r=r->next;
+   }
+}
+*************************************************************************************************************************************************************************
+reverse a doubly linked list
+
+Node* reverseDLL(Node * head)
+{
+    Node*u=head;
+    Node*prev1=NULL;
+       while(u!=NULL){
+       Node*r=u->next;
+       u->next=prev1;
+       u->prev=r;
+       prev1=u;
+       u=r;
+   }
+   head=prev1;
+}
+***************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int d){
+        data=d;
+        next=NULL;
+    }
+    void display(){
+        cout<<data<<endl;
+    }
+    
+};
+class LinkedList{
+    public:
+    Node*hptr=NULL;
+    void append(int d){
+    if(hptr==NULL){
+       Node*temp= new Node(d);
+        hptr=temp;
+    }
+    else{
+        Node*temp=hptr;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        Node*newnode=new Node(d);
+        temp->next=newnode;
+    }
+    }
+    void Display(){
+        Node*temp=hptr;
+        while(temp!=NULL){
+            temp->display();
+            temp=temp->next;
+        }
+    }
+    void sum(){
+        int sum=0;
+        Node*temp=hptr;
+        while(temp!=NULL){
+            sum=sum+temp->data;
+            temp=temp->next;
+        }
+        cout<<sum<<endl;
+    }
+    void find(int k){
+        Node*temp=hptr;
+        int pin;
+        while(temp!=NULL){
+            if(k==temp->data){
+               pin=1;
+               
+            }
+            
+                temp=temp->next;
+            
+        }
+        if(pin==1){
+            cout<<"the element is found"<<endl;
+        }
+        else{
+            cout<<"not found"<<endl;
+        }
+    }
+};
+int main(){
+    LinkedList l;
+    
+    int a;
+ l.append(3);
+ l.append(4);
+    l.Display();
+    l.sum();
+    l.find(12);
+}
+***************************************************************************************************************************************************************************
+adding 2 polynomials
+#include<iostream>
+using namespace std;
+class term{
+    public:
+    int coeff;
+    int exp1;
+    term*next;
+    term(int c,int e){
+        coeff=c;
+        exp1=e;
+        next=NULL;
+    }
+    void display(){
+        if(next==NULL){
+            cout<<coeff<<endl;
+        }
+        else{
+        cout<<coeff<<"x^"<<exp1<<"+";
+    }
+    }
+    
+    
+};
+class polynomial{
+    public:
+    term*hptr=NULL;
+    void append(int c,int e){
+    if(hptr==NULL){
+       term*temp= new term(c, e);
+        hptr=temp;
+    }
+    else{
+        term*temp=hptr;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        term*newnode=new term(c,e);
+        temp->next=newnode;
+    }
+    }
+    void Display(){
+        term*temp=hptr;
+        while(temp!=NULL){
+            temp->display();
+            temp=temp->next;
+        }
+    }
+    polynomial add(polynomial p1){
+        polynomial pr;
+        term*t1,*t2;
+        t1=hptr;
+        t2=p1.hptr;
+        while(t1!=NULL && t2!=NULL){
+            if(t1->exp1==t2->exp1){
+                pr.append(t1->coeff+t2->coeff,t1->exp1);
+                t1=t1->next;
+                t2=t2->next;
+            }
+            else if(t1->exp1<t2->exp1){
+                pr.append(t2->coeff,t2->exp1);\
+                t2=t2->next;
+            }
+            else if(t1->exp1>t2->exp1){
+                pr.append(t1->coeff,t1->exp1);
+                t1=t1->next;
+            }
+        }
+        if(t2==NULL && t1!=NULL){
+            while(t1!=NULL){
+                pr.append(t1->coeff,t1->exp1);
+                t1=t1->next;
+            }
+        }
+        else if (t1==NULL && t2!=NULL){
+            while(t2!=NULL){
+                pr.append(t2->coeff,t2->exp1);
+            }
+        }
+       pr.Display();
+    }
+};
+int main(){
+    polynomial p,p1,p3,pr;
+    
+    
+ p.append(5,4);
+ p.append(3,3);
+ p.append(2,2);
+ p.append(7,1);
+ p.append(5,0);
+ p1.append(3,4);
+ p1.append(7,2);
+ p1.append(8,0);
+ p1.Display();
+    p.Display();
+    p.add(p1);
+    
+  
+}
+******************************************************************************************************************************************************************************
+/*Write a C++ program to search an element from linked list
+
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+                                                                                                                 
+*/
+#include<iostream>
+using namespace std;
+int len=0;
+class Node
+{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d)
+  {data=d;
+   next=NULL;
+  }
+  void display()
+  {
+  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist
+{
+	public:
+	Node *hptr=NULL;
+	
+	  void append(int d)
+	{ 
+	 
+	  if(hptr==NULL)
+	  
+	  {
+	  	 Node *temp=new Node(d);
+	  	 hptr=temp;
+	  }
+	    
+	 else{
+	 	Node *temp=hptr;
+	 	while(temp->next!=NULL)
+		 {
+		 	temp=temp->next;
+		 	
+		 }
+		 Node *nptr=new Node(d);
+		 temp->next=nptr;
+		 len++;
+	}
+	}
+	void insert(int p,int v){
+	    len++;
+	    if(p==0){
+	        Node*nptr=new Node(v);
+	        nptr->next=hptr;
+	        hptr=nptr;
+	    }
+	    else if(p>len+1){
+	        cout<<"Insert out of bound "<<endl;
+	    }
+	    else{
+	        int i=0;
+	        Node*t=hptr;
+	        while(i<p-1){
+	           
+	            t=t->next;
+	            i++;
+	        }
+	       Node*t1=new Node(v);
+	       Node*temp=t->next;
+	       t->next=t1;
+	       t1->next=temp;
+	    }
+	}
+	
+	void display()
+	{ 
+	    Node *temp=hptr;
+	 	while(temp!=NULL)
+			 {
+			  temp->display();
+			 
+		 	  temp=temp->next;
+		 	
+		 }
+	}
+	
+	
+	
+	
+	
+};
+int main()
+{
+	Linkedlist l;
+	int val;
+	l.append(5);
+	l.append(10);
+	l.append(15);
+	l.append(20);
+	l.display();
+    l.insert(1,30);
+    l.display();
+	return 0;
+}
+*****************************************************************************************************************************************************************************
+/*Write a C++ program to search an element from linked list
+
+Sample Output
+Before Deletion                                                                                                         
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+Enter the element to delete 
+10
+After Deletion                                                                                                          
+5                                                                                                                       
+15                                                                                                                      
+20    
+Before Deletion                                                                                                         
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+Enter the element to delete 
+55
+Data Not Found                                                                                                                   
+*/
+#include<iostream>
+using namespace std;
+
+class Node
+{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d)
+  {data=d;
+   next=NULL;
+  }
+  void display()
+  {
+  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist
+{
+	public:
+	Node *hptr=NULL;
+	int length=0;
+	
+	  void append(int d)
+	{ 
+	 
+	  if(hptr==NULL)
+	  
+	  {
+	  	 Node *temp=new Node(d);
+	  	 hptr=temp;
+	  }
+	    
+	 else{
+	 	Node *temp=hptr;
+	 	while(temp->next!=NULL)
+		 {
+		 	temp=temp->next;
+		 	
+		 }
+		 Node *nptr=new Node(d);
+		 temp->next=nptr;
+	}
+	length++;
+	}
+	void display(){
+	    
+	    Node *temp=hptr;
+	    while(temp!=NULL){
+	        cout<<temp->data<<endl;
+	        temp=temp->next;
+	    }
+	}
+void nodeDelete(int val)
+{ 
+    
+    Node *temp=hptr;
+    if(temp->next!=NULL && temp->data==val) {
+        hptr=temp->next;
+        length--;
+        
+    }
+    else{
+        while(temp->next!=NULL && temp->next->data!=val){
+           temp=temp->next ;
+        }
+        if(temp->next==NULL){
+            cout<<"Data Not Found";
+            exit(0);
+        }
+        else{
+            temp->next=temp->next->next;
+            length--;
+        }
+    }
+    //write code here
+    
+}
+};
+int main()
+{
+	Linkedlist l;
+	int val;
+	l.append(5);
+	l.append(10);
+	l.append(15);
+	l.append(20);
+	cout<<"Before Deletion"<<endl;
+	l.display();
+	cout<<"Enter the element to delete"<<endl;
+	cin>>val;
+	l.nodeDelete(val);
+	cout<<"After Deletion"<<endl;
+	l.display();
+
+	return 0;
+}
+/*Before Deletion                                                                                                         
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+Enter the element to delete 
+10
+After Deletion                                                                                                          
+5                                                                                                                       
+15                                                                                                                      
+20    
+Before Deletion                                                                                                         
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+Enter the element to delete 
+55
+Data Not Found  */
+ 
+****************************************************************************************************************************************************************************
+/*Write a C++ program to search an element from linked list
+
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+                                                                                                                 
+*/
+#include<iostream>
+using namespace std;
+int e=-1;
+int t=0;
+class Node
+{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d)
+  {data=d;
+   next=NULL;
+  }
+  void display()
+  {
+  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist
+{
+	public:
+	Node *hptr=NULL;
+	int length=0;
+	
+	  void append(int d)
+	{ 
+	 
+	  if(hptr==NULL)
+	  
+	  {
+	  	 Node *temp=new Node(d);
+	  	 hptr=temp;
+	  }
+	    
+	 else{
+	 	Node *temp=hptr;
+	 	while(temp->next!=NULL)
+		 {
+		 	temp=temp->next;
+		 	
+		 }
+		 Node *nptr=new Node(d);
+		 temp->next=nptr;
+	}
+	length++;
+	}
+	void insert(int p,int v){
+	    if(p==0){
+	        Node* nptr1 = new Node(v);
+	        nptr1->next = hptr;
+	        hptr = nptr1;
+	        length++;
+	    }
+	    else if(p>length-1){
+	        cout<<"Insert out of bound"<<endl;
+	        return;
+	    }
+	    else{
+	        int count=0;
+	        Node* t = hptr;
+	        while(count<p-1){
+	           t = t->next;
+	           count++;
+	        }
+	        Node* t1 = new Node(v);
+	        Node* temp = t->next;
+	        t->next = t1;
+	        t1->next = temp;
+	        length++;
+	    }
+	    
+	}
+	void nodeDelete(int val){
+	    Node* temp = hptr;
+	    if(hptr->data == val){
+	        hptr = hptr->next;
+	        length--;
+	    }
+	    else{
+	        while(temp->next!=NULL && temp->next->data!=val){
+	            temp=temp->next;
+	        }
+	        if(temp->next == NULL){
+	            cout<<"Data Not Found"<<endl;
+	        }
+	        else{
+	            temp->next = temp->next->next;
+	            length--;
+	        }
+	    }
+	}
+	void display()
+	{ 
+	    Node *temp=hptr;
+	 	while(temp!=NULL)
+			 {
+			  temp->display();
+		 	  temp=temp->next;
+		 	
+		 }
+	}
+	void display(Node*temp){
+	     if(temp->next==NULL){
+	        cout<<temp->data<<endl;
+	    }
+	    else{
+	        cout<<temp->data<<endl;
+	        display(temp->next);
+	    }
+	}
+	int p=1;
+	int sum2=0;
+	int sum1(Node*temp){
+	    
+	    if(temp->next==NULL){
+	        sum2=sum2+temp->data;
+	        return sum2;
+	    }
+	    else{
+	        sum2=sum2+temp->data;
+	        sum1(temp->next);
+	    }
+	}
+	int product(Node*temp){
+	    if(temp->next==NULL){
+	        p=p*temp->data;
+	        return p;
+	    }
+	    else{
+	        p=p*temp->data;
+	        product(temp->next);
+	    }
+	}
+	
+	int search(Node*temp,int val){
+	    if(temp->next==NULL){
+	        if(temp->data==val){
+	            e=1;
+	            return e;
+	        }
+	        return e;
+	    }
+	        else{
+	            if(temp->data==val){
+	                e=1;
+	                return e;
+	            }
+	            
+	            search(temp->next,val);
+	        }
+	    }
+	
+	int len(Node*temp){
+	    if(temp->next==NULL){
+	        t++;
+	        return t;
+	    }
+	    else{
+	        t++;
+	        len(temp->next);
+	    }
+	}
+	
+};
+int main()
+{
+	Linkedlist l;
+	int val;
+	
+	l.append(5);
+	l.append(10);
+	l.append(15);
+	l.append(20);
+// 	cout<<"Before Insertion"<<endl;
+// 	l.display();
+// 	cout<<"After Insertion"<<endl;
+//     l.insert(3,30);
+//     l.display();
+//     cout<<"After Deletion"<<endl;
+//     l.nodeDelete(15);
+//     cout<<"recursive solution"<<endl;
+    l.display(l.hptr);
+   cout<<l.sum1(l.hptr)<<endl;
+   cout<<l.product(l.hptr)<<endl;
+   cout<<l.search(l.hptr,20)<<endl;
+   cout<<l.len(l.hptr);
+    return 0;
+}
+ 
+*******************************************************************************************************************************************************************************
+/*Write a C++ program to search an element from linked list
+
+5                                                                                                                       
+10                                                                                                                      
+15                                                                                                                      
+20                                                                                                                      
+                                                                                                                 
+*/
+#include<iostream>
+using namespace std;
+
+class Node{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+  }
+  void display(){  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist{
+	public:
+	Node *hptr=NULL;
+	int length=0;
+	
+	/* Iterative Approach */
+	
+	  void append(int d){ 	 
+	  if(hptr==NULL){
+	  	 Node *temp=new Node(d);
+	  	 hptr=temp;
+	  }	    
+	  else{
+	 	Node *temp=hptr;
+	 	while(temp->next!=NULL){
+		 	temp=temp->next;
+		 	
+		 }
+		 Node *nptr=new Node(d);
+		 temp->next=nptr;
+	}
+	  length++;
+	}
+	void insert(int p,int v){
+	    if(p==0){
+	        Node* nptr1 = new Node(v);
+	        nptr1->next = hptr;
+	        hptr = nptr1;
+	        length++;
+	    }
+	    else if(p>length-1){
+	        cout<<"Insert out of bound"<<endl;
+	        return;
+	    }
+	    else{
+	        int count=0;
+	        Node* t = hptr;
+	        while(count<p-1){
+	           t = t->next;
+	           count++;
+	        }
+	        Node* t1 = new Node(v);
+	        Node* temp = t->next;
+	        t->next = t1;
+	        t1->next = temp;
+	        length++;
+	    }
+	    
+	}
+	void nodeDelete(int val){
+	    Node* temp = hptr;
+	    if(hptr->data == val){
+	        hptr = hptr->next;
+	        length--;
+	    }
+	    else{
+	        while(temp->next!=NULL && temp->next->data!=val){
+	            temp=temp->next;
+	        }
+	        if(temp->next == NULL){
+	            cout<<"Data Not Found"<<endl;
+	        }
+	        else{
+	            temp->next = temp->next->next;
+	            length--;
+	        }
+	    }
+	}
+	void display(){ 
+	    Node *temp=hptr;
+	 	while(temp!=NULL)
+			 {
+			  temp->display();
+		 	  temp=temp->next;
+		 	
+		 }
+	}
+	
+	/* Recursive Approach */
+	
+	void display(Node* temp){
+	    if(temp->next==NULL){
+	        cout<<temp->data<<endl;
+	    }
+	    else{
+	        cout<<temp->data<<endl;
+	        display(temp->next);
+	    }
+	}
+	int getSum(Node* temp){
+	    if(temp->next==NULL){
+	        return temp->data;
+	    }
+	    else{
+	        return(temp->data+getSum(temp->next));
+	    }
+	}
+	int getProduct(Node* temp){
+	    if(temp->next==NULL){
+	        return temp->data;
+	    }
+	    else{
+	        return(temp->data*getProduct(temp->next));
+	    }
+	}
+	int findElement(Node* temp,int e){
+	    if(temp->next == NULL){
+	        if(temp->data == e){
+	            return e;
+	        }
+	        else{
+	            return -1;
+	        }
+	    }
+	    else{
+	        if(temp->data == e){
+	            return e;
+	        }
+	        else{
+	            return findElement(temp->next,e);
+	        }
+	    }
+	}
+	int getLength(Node* temp){
+	    if(temp->next == NULL){
+	        return 1;
+	    }
+	    else{
+	        return 1+(getLength(temp->next));
+	    }
+	}
+// 	Linkedlist concatenate(Linkedlist p){
+	   
+	    
+// 	   // Node*temp=hptr;
+	    
+	    
+// 	   // while(temp->next!=NULL){
+// 	   //     temp=temp->next;
+// 	   // }
+// 	   // temp->next=p.hptr;
+	 
+// 	   // return *this;
+// 	   Node*temp=hptr;
+// 	   while(temp->next!=NULL){
+// 	       temp=temp->next;
+// 	   }
+// 	   temp->next=p.hptr;
+// 	   Node*r=hptr;
+// 	   Linkedlist t;
+// 	   t.hptr=r;
+// 	   return t;
+// 	}
+void reverse(){
+    Node*temp=hptr;
+    Node*prev=NULL;
+    while(temp!=NULL){
+        Node*n=temp->next;
+        temp->next=prev;
+        prev=temp;
+        temp=n;
+    }
+    hptr=prev;
+}
+Linkedlist operator+(Linkedlist p){
+    Node*temp=hptr;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=p.hptr;
+    return *this;
+}
+};
+int main(){
+	Linkedlist l;
+	Linkedlist l2;
+	Linkedlist t;
+	l2.append(12);
+	l2.append(14);
+	l2.append(45);
+	int val;
+	l.append(5);
+	l.append(10);
+	l.append(15);
+	l.append(20);
+    cout<<"Recursive Display"<<endl;
+    l.display(l.hptr);
+    cout<<"Sum of Elements:"<<endl;
+    cout<<l.getSum(l.hptr)<<endl;
+    cout<<"Product of Elements:"<<endl;
+    cout<<l.getProduct(l.hptr)<<endl;
+    cout<<"Find:"<<endl;
+    cout<<l.findElement(l.hptr,35)<<endl;
+    cout<<"Length"<<endl;
+    cout<<l.getLength(l.hptr)<<endl;
+    // Linkedlist l3=l.concatenate(l2);
+//     Linkedlist l3=l+l2;
+//   l3.display();
+  l.reverse();
+  l.display();
+    // l.display();
+	return 0;
+}
+************************************************************************************************************************************************************************************
+double linked list deletion
+#include<iostream>
+using namespace std;
+
+class Node{
+  public:
+  int data;
+  Node *next;
+  Node*prev;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+      prev=NULL;
+  }
+};
+  class DLL{
+      public:
+      Node*hptr=NULL;
+      Node*tptr=NULL;
+      void add(int d){
+          Node*nptr=new Node(d);
+          if(hptr==NULL){
+              hptr=tptr=nptr;
+          }
+          else{
+              tptr->next=nptr;
+              nptr->prev=tptr;
+              tptr=nptr;
+          }
+      }
+          void display(){
+              Node*temp=hptr;
+              while(temp!=NULL){
+                  cout<<temp->data<<endl;
+                  temp=temp->next;
+              }
+          }
+          void reversedisplay(){
+              Node*u=tptr;
+              while(u!=NULL){
+                  cout<<u->data<<endl;
+                  u=u->prev;
+              }
+          }
+                  
+  void delete1(int e){
+      Node*temp=hptr;
+      Node*u=tptr;
+      if(temp->data==e ){
+          hptr=temp->next;
+          hptr->prev=NULL;
+      }
+      else if(u->data==e){
+          tptr=u->prev;
+          tptr->next=NULL;
+      }
+      else{
+          while(temp->next!=NULL &&temp->next->data!=e){
+              temp=temp->next;
+          }
+          if(temp->next==NULL){
+              cout<<"element not found"<<endl;
+              exit(0);
+          }
+          else{
+          Node*t=temp->next->prev;
+          temp->next=temp->next->next;
+          temp->next->prev=t;
+      }
+      }
+  }
+};
+int main(){
+    DLL l;
+    l.add(10);
+    l.add(8);
+    l.add(4);
+    l.add(2);
+    l.display();
+    cout<<"reverse display"<<endl;
+    
+    l.delete1(4);
+    l.reversedisplay();
+    
+}
+***************************************************************************************************************************************************************************
+creation of double linked list
+#include<iostream>
+using namespace std;
+
+class Node{
+  public:
+  int data;
+  Node *next;
+  Node*prev;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+      prev=NULL;
+  }
+};
+  class DLL{
+      public:
+      Node*hptr=NULL;
+      Node*tptr=NULL;
+      void add(int d){
+          Node*nptr=new Node(d);
+          if(hptr==NULL){
+              hptr=tptr=nptr;
+          }
+          else{
+              tptr->next=nptr;
+              nptr->prev=tptr;
+              tptr=nptr;
+          }
+      }
+          void display(){
+              Node*temp=hptr;
+              while(temp!=NULL){
+                  cout<<temp->data<<endl;
+                  temp=temp->next;
+              }
+          }
+          void reversedisplay(){
+              Node*u=tptr;
+              while(u!=NULL){
+                  cout<<u->data<<endl;
+                  u=u->prev;
+              }
+          }
+};
+int main(){
+DLL l;
+    l.add(10);
+    l.add(8);
+    l.add(4);
+    l.add(2);
+    l.display();
+l.reversedisplay();
+}
+*************************************************************************************************************************************************************************
+double linked list
+#include<iostream>
+using namespace std;
+int r=0;
+class Node{
+  public:
+  int data;
+  Node *next;
+  Node*prev;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+      prev=NULL;
+  }
+};
+  class DLL{
+      public:
+      Node*hptr=NULL;
+      Node*tptr=NULL;
+      void add(int d){
+          Node*nptr=new Node(d);
+          if(hptr==NULL){
+              hptr=tptr=nptr;
+              r++;
+          }
+          else{
+              tptr->next=nptr;
+              nptr->prev=tptr;
+              tptr=nptr;
+              r++;
+          }
+      }
+          void display(){
+              Node*temp=hptr;
+              while(temp!=NULL){
+                  cout<<temp->data<<endl;
+                  temp=temp->next;
+              }
+          }
+          void reversedisplay(){
+              Node*u=tptr;
+              while(u!=NULL){
+                  cout<<u->data<<endl;
+                  u=u->prev;
+              }
+          }
+                  
+  void delete1(int e){
+      Node*temp=hptr;
+      Node*u=tptr;
+      if(temp->data==e ){
+          hptr=temp->next;
+          hptr->prev=NULL;
+          r--;
+      }
+      else if(u->data==e){
+          tptr=u->prev;
+          tptr->next=NULL;
+          r--;
+      }
+      else{
+          while(temp->next!=NULL &&temp->next->data!=e){
+              temp=temp->next;
+          }
+          if(temp->next==NULL){
+              cout<<"element not found"<<endl;
+              exit(0);
+          }
+          else{
+          Node*t=temp->next->prev;
+          temp->next=temp->next->next;
+          temp->next->prev=t;
+          r--;
+      }
+      }
+  }
+  void insert(int pos,int el){
+      Node*t=new Node(el);
+      Node*temp=hptr;
+      if(pos==0){
+         
+          hptr->prev=t;
+           t->next=hptr;
+          
+          hptr=t;
+      }
+      else if(pos>r){
+          cout<<"insertion out of bound"<<endl;
+      }
+      else if (pos==r){
+          t->prev=tptr;
+          tptr->next=t;
+          t->next=NULL;
+          tptr=t;
+      }
+      else{
+          int y=0;
+          while(y<pos-1){
+              temp=temp->next;
+              y++;
+          }
+         t->next=temp->next;
+         t->prev=temp;
+         temp->next->prev=t;
+         temp->next=t;
+         
+      }
+  }
+};
+int main(){
+    DLL l;
+    l.add(10);
+    l.add(8);
+    l.add(4);
+    l.add(2);
+    l.display();
+    
+    
+    // l.delete1(4);
+    l.insert(2,9);
+    l.display();
+    cout<<"reverse display"<<endl;
+    l.reversedisplay();
+    
+    
+}
+*****************************************************************************************************************************************************************************
+circular linked list
+#include<iostream>
+using namespace std;
+int p=0;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int d){
+        data=d;
+        next=NULL;
+    }
+};
+class CLL{
+    public:
+    Node*hptr=NULL;
+       
+    void append(int d){
+        Node*nptr=new Node(d);
+       
+        if(hptr==NULL){
+         hptr=nptr;
+         nptr->next=hptr;
+         p++;
+        }
+        else{
+             Node*temp=hptr;
+            while(temp->next!=hptr){
+                temp=temp->next;
+            }
+            temp->next=nptr;
+            nptr->next=hptr;
+            p++;
+        }
+    }
+    void display(){
+        Node*temp=hptr;
+        do{
+            cout<<temp->data<<endl;
+            temp=temp->next;
+        }while(temp!=hptr);
+    }
+    void delete1(int e){
+        Node*temp=hptr;
+        if(temp->data==e){
+           hptr=temp->next;
+            do{
+                
+                    temp=temp->next;
+               
+            }while(temp->next->next!=hptr);
+             
+            temp->next=hptr;
+        }
+        else{
+        
+            while(temp->next!=hptr){
+                
+                if(temp->next->data==e){
+                    temp->next=temp->next->next;
+                }
+                temp=temp->next;
+            }
+            temp->next=hptr;
+        }
+    }
+    void insert(int pos ,int ele){
+        Node*yptr=new Node(ele);
+        if(pos==0){
+            Node*temp=hptr;
+            
+            yptr->next=hptr;
+            
+            
+            while(temp->next!=hptr){
+                temp=temp->next;
+            }
+            
+            hptr=yptr;
+            temp->next=hptr;
+        }
+        if(pos>p){
+            cout<<"insertion not possible"<<endl;
+        }
+        else if(pos==p){
+            Node*temp=hptr;
+            while(temp->next!=hptr){
+                temp=temp->next;
+            }
+            temp->next=yptr;
+            yptr->next=hptr;
+            
+        }
+        else{
+            Node*tw=hptr;
+            int i=0;
+            while(i<pos-1){
+                tw=tw->next;
+                i++;
+            }
+            Node*t=tw->next;
+            tw->next=yptr;
+            yptr->next=t;
+        }
+    }
+}l;
+int main(){
+    l.append(2);
+    l.append(8);
+    l.append(10);
+    l.append(87);
+    l.display();
+    // l.delete1(8);
+    l.insert(3,12);
+    l.display();
+}
+
+************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+int p=0;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node*prev;
+    Node(int d){
+        data=d;
+        next=NULL;
+        prev=NULL;
+    }
+};
+class DCL{
+    public:
+    Node*hptr=NULL;
+    Node*tptr=NULL;
+    void append(int d){
+        Node*nptr=new Node(d);
+        if(hptr==NULL){
+            hptr=tptr=nptr;
+            nptr->next=nptr->prev=hptr;
+            
+            p++;
+        }
+        else{
+            Node*temp=hptr;
+            while(temp->next!=hptr){
+                temp=temp->next;
+            }
+             nptr->prev=temp;
+            temp->next=nptr;
+           
+            nptr->next=hptr;
+            tptr=nptr;
+            hptr->prev=tptr;
+            p++;
+        }
+    }
+    void forward_display(){
+        Node*temp=hptr;
+        do{
+            cout<<temp->data<<endl;
+            temp=temp->next;
+            
+        }while(temp!=hptr);
+    }
+    void reverse_display(){
+        Node*temp=tptr;
+        do{
+            cout<<temp->data<<endl;
+            temp=temp->prev;
+        }while(temp!=tptr);
+    }
+    void insert(int pos,int ele){
+        Node*yptr=new Node(ele);
+        if(pos==0){
+            yptr->next=hptr;
+            hptr->prev=yptr;
+            yptr->prev=tptr;
+            tptr->next=yptr;
+            hptr=yptr;
+        }
+        else if (pos==p){
+            tptr->next=yptr;
+            yptr->prev=tptr;
+            hptr->prev=yptr;
+            yptr->next=hptr;
+            tptr=yptr;
+        }
+    
+    else if(pos>p){
+        cout<<"insertion not possible"<<endl;
+        
+    }
+    else{
+        Node*temp=hptr;
+        int i=0;
+        while(i<pos-1){
+            temp=temp->next;
+            i++;
+        }
+        Node*r=temp->next;
+        
+        temp->next=yptr;
+        yptr->prev=temp;
+        yptr->next=r;
+        r->prev=yptr;
+    }
+    }
+        
+        
+    
+}l;
+int main(){
+ l.append(2);
+ l.append(89);
+ l.append(76);
+ l.forward_display();
+ cout<<"reverse display"<<endl;
+ l.reverse_display();
+ l.insert(2,14);
+ l.forward_display();
+ 
+}
+*********************************************************************************************************************************************************************
+/*Write a C++ program to find N'th element from end of the linked list  */
+
+#include<iostream>
+using namespace std;
+
+class Node{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+  }
+  void display(){  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist{
+	public:
+	Node *hptr=NULL;
+	int length=0;	
+	  void append(int d){ 	 
+	  if(hptr==NULL){
+	  	 Node *temp=new Node(d);
+	  	 hptr=temp;
+	  }	    
+	  else{
+	 	Node *temp=hptr;
+	 	while(temp->next!=NULL){
+		 	temp=temp->next;
+		 }
+		 Node *nptr=new Node(d);
+		 temp->next=nptr;
+	}
+	  length++;
+	}
+	void display(){ 
+	    Node *temp=hptr;
+	 	while(temp!=NULL)
+			 {
+			  temp->display();
+		 	  temp=temp->next;
+		 }
+	}
+	void find_Nth_(int k){
+	    Node*t=hptr;
+	    Node*u=hptr;
+	    int i=0;
+	    while(i<k){
+	        t=t->next;
+	        i++;
+	    }
+	    while(t->next!=NULL && u!=NULL ){
+	        t=t->next;
+	        u=u->next;
+	    }
+	    if(t->next==NULL){
+	        cout<<u->data<<endl;
+	    }
+	   
+	}
+};
+int main(){
+
+    Linkedlist l;
+    l.append(10);
+    l.append(20);
+    l.append(30);
+    l.append(45);
+    l.append(77);
+    l.find_Nth_(2);
+	return 0;
+}
+ *********************************************************************************************************************************************************************
+// C++ program to detect loop in a linked list
+/*sample output:
+loop found*/
+#include <iostream>
+using namespace std;
+
+/* Link list node */
+class Node {
+    public:
+	int data;
+	 Node* next;
+	Node(int d){
+	    data=d;
+	    next=NULL;
+	}
+};
+class Linkedlist{
+    public:
+    Node*hptr=NULL;
+void addnode(int d){
+Node*r=new Node(d);
+ if(hptr==NULL){
+    hptr=r;
+    
+}
+else{
+    Node*y=hptr;
+    while(y->next!=NULL){
+        y=y->next;
+    }
+    y->next=r;
+}
+}
+	
+void display(){
+    Node*t=hptr;
+    while(t!=NULL){
+        cout<<t->data<<endl;
+        t=t->next;
+    }
+}	
+void createloop(){
+    Node*r=hptr;
+    int i=0;
+    while(r->next!=NULL){
+        r=r->next;
+    }
+    Node*k=hptr;
+    while(i<2){
+        k=k->next;
+        i++;
+    }
+    r->next=k;
+    
+}
+
+// Returns true if there is a loop in linked list
+// else returns false.
+void detectLoop( )
+{
+Node*r=hptr;
+Node*k=hptr;
+int i=0;
+while(i<3){
+    k=k->next;
+    i++;
+}
+while(k!=NULL && r!=NULL){
+if(r==k){
+    cout<<"loop found"<<endl;
+    exit(0);
+}
+k=k->next;
+r=r->next;
+
+}
+cout<<"loop not found"<<endl;
+}
+
+};
+/* Driver program to test above function*/
+int main()
+{
+	Linkedlist l;
+	l.addnode(12);
+	l.addnode(13);
+	l.addnode(123);
+	l.addnode(1234);
+	l.addnode(6788920);
+	
+	l.createloop();
+	l.detectLoop();
+
+}
+
+**************************************************************************************************************************************************************************
+/* C++ Program to Check for Balanced Brackets in an expression (well-formedness)
+using Stack 
+
+Sample Test Cases:
+Input:
+Enter expression
+{{[[(())]]}}
+Output:
+Braces are balanced
+
+Input:
+Enter expression
+{[(])}
+Output:
+Braces are imbalanced
+
+*/
+#include <iostream>
+#include<string.h>
+#include<stack>
+using namespace std;
+
+class BracesBalance{
+	public:
+		bool areBalancedBraces(string str){
+		    stack<char>a;
+		    //Write code here  
+		    for(int i=0;i<str.length();i++){
+		        if(str[i]=='(' || str[i]=='{' || str[i]=='['){
+		            a.push(str[i]);
+		        }
+		        else{
+		            if((a.top()=='[' && str[i]==']') ||(a.top()=='{' && str[i]=='}') || (a.top()=='(' && str[i]==')')){
+		                a.pop();
+		            }
+		            
+		        }
+		    }
+		    if(a.empty()){
+		        return 1;
+		    }
+		    else{
+		        return 0;
+		    }
+		    
+		}	
+};
+
+int main(){
+	BracesBalance bb;
+	string expr;
+	
+	cout<<"Enter expression"<<endl;
+	cin>>expr;    
+    if (bb.areBalancedBraces(expr))
+        cout <<"Braces are balanced";
+    else
+        cout <<"Braces are imbalanced";
+    return 0;
+}
+*************************************************************************************************************************************************************************
+/*Write a C++ program Stack using linked list  */
+
+#include<iostream>
+using namespace std;
+
+class Node{
+  public:
+  int data;
+  Node *next;
+  
+  Node(int d){
+	  data=d;
+      next=NULL;
+  }
+  void display(){  
+   cout<<data<<endl;
+  }
+};
+class Linkedlist{
+	public:
+	Node *hptr=NULL;
+	int length=0;	
+	
+	void display(){ 
+	    Node *temp=hptr;
+	 	while(temp!=NULL)
+			 {
+			  temp->display();
+		 	  temp=temp->next;
+		 }
+	}
+	
+};
+class Stack{
+    public:
+    Node *hptr ;
+    int maxlen;
+    int clength;
+    Stack(int n){
+        hptr = NULL;
+        maxlen = n;
+        clength = 0;
+    }
+    int push(int d){
+        if(clength == maxlen){
+            cout<<"Stack is full!"<<endl;
+            return -1;
+        }
+        else{
+            if(hptr == NULL){
+                Node *nptr = new Node(d);
+                hptr = nptr;
+                clength++;
+                return d;
+            }
+            else{
+                Node *nptr = new Node(d);
+                nptr->next = hptr;
+                hptr = nptr;
+                clength++;
+                return d;
+            }
+        }    
+    }
+    int pop(){
+        if(clength == 0){
+            cout<<"Stack is Empty"<<endl;
+            return -1;
+        }
+        else{
+            int t = hptr->data;
+            hptr = hptr->next;
+            clength--;
+            return t;
+        }
+    }
+  
+};
+int main(){
+
+    Stack st(4);
+    int n;
+    n = st.push(4);
+    n = st.push(8);
+    n = st.push(10);
+    n = st.push(11);
+    n = st.push(15);
+    /*if(n == -1){
+        cout<<"Stack Overflow"<<endl;
+    }*/
+    cout<<"Popped Elements"<<endl;
+    cout<<st.pop()<<endl;
+    cout<<st.pop()<<endl;
+    cout<<st.pop()<<endl;
+    cout<<st.pop()<<endl;
+    cout<<st.pop()<<endl;
+	return 0;
+}
+ 
+**********************************************************************************************************************************************************************************
+stack using array
+#include <iostream>
+using namespace std;
+class stack{
+    public:
+    int*arr;
+    int top;
+    int clen;
+int capacity;
+    stack(int l){
+        arr=new int[l];
+        top=-1;
+        clen=0;
+        capacity=l;
+    }
+    int push(int v){
+        if(clen==capacity){
+            return -1;
+        }
+        arr[++top]=v,
+        clen++;
+    }
+    int pop(){
+        if(clen==0){
+            return -1;
+        }
+        else{
+            clen--;
+            int a=arr[top--];
+           
+           return a;
+            
+            
+            
+        }
+    }
+};
+int main(){
+    stack r(4);
+    r.push(12);
+    r.push(123);
+    r.push(1234);
+    r.push(89);
+    cout<<r.pop()<<endl;
+     cout<<r.pop()<<endl;
+     cout<<r.pop()<<endl;
+     cout<<r.pop()<<endl;
+     cout<<r.pop()<<endl;
+    
+    
+}
+
+**********************************************************************************************************************************************************************************
+#include<iostream>
+#include<stack>
+using namespace std;
+int t=0;
+char arr[100];
+int len[100];
+stack<char>p;
+stack<char>k;
+class Node{
+    public:
+    char data;
+    Node*next;
+    Node*prev=NULL;
+    Node(char d){
+        data=d;
+        next=NULL;
+        prev=NULL;
+    }
+
+    
+};
+class LinkedList{
+    public:
+    Node*hptr=NULL;
+    void append(char d){
+    if(hptr==NULL){
+      Node*temp= new Node(d);
+        hptr=temp;
+          t++;
+    }
+    else{
+        Node*temp=hptr;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        Node*newnode=new Node(d);
+        temp->next=newnode;
+          t++;
+    }
+    }
+   
+    void apprndarray(){
+        int i=0;
+        Node*temp=hptr;
+        while(temp!=NULL&& i<t){
+            arr[i++]=temp->data;
+            temp=temp->next;
+        }
+        for(int y=0;y<t;y++){
+            cout<<arr[y]<<endl;
+        }
+    }
+    void repdupicates(){
+        for(int i=0;i<t;i++){
+            len[i]=1;
+            for(int j=i+1;j<t;j++){
+                if(arr[i]==arr[j]){
+                    len[i]++;
+                    arr[j]='0';
+                }
+            }
+        }
+        for(int i=0;i<t;i++){
+            if( arr[i]!='0'){
+                cout<<arr[i]<<"-"<<len[i]<<endl;
+            }
+        }
+    }
+    
+    void push(){
+        for(int i=0;i<t;i++){
+            if(arr[i]!='0'){
+                for(int u=0;u<len[i];u++){
+                    p.push(arr[i]);
+                }
+            }
+        }
+    }
+    void stackins(){
+        while(!p.empty()){
+            char m=p.top();
+           k.push(m);
+            p.pop();
+        }
+    }
+    void stackdisp(){
+        while(!k.empty()){
+            cout<<k.top()<<endl;
+            k.pop();
+        }
+    }
+    
+};
+
+int main(){
+    LinkedList l;
+    
+  char a;
+  for(int i=0;i<10;i++){
+      cin>>a;
+      l.append(a);
+  }
+   
+    l. apprndarray();
+l.repdupicates();
+l.push();
+l.stackins();
+l.stackdisp();
+    // l.reverse();
+    // l.reverse_display();
+    
+}
+************************************************************************************************************************************************************************
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+int t=0;
+char arr[100];
+int len[100];
+stack<char>p;
+stack<char>k;
+class Node{
+    public:
+    char data;
+    Node*next;
+    Node*prev=NULL;
+    Node(char d){
+        data=d;
+        next=NULL;
+        prev=NULL;
+    }
+
+    
+};
+class LinkedList{
+    public:
+    Node*hptr=NULL;
+    void append(string y){
+        for(int i=0;i<y.length();i++){
+    if(hptr==NULL){
+      Node*temp= new Node(y[i]);
+        hptr=temp;
+          t++;
+    }
+    else{
+        Node*temp=hptr;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        Node*newnode=new Node(y[i]);
+        temp->next=newnode;
+          t++;
+    }
+        }
+    }
+   
+    void apprndarray(){
+        int i=0;
+        Node*temp=hptr;
+        while(temp!=NULL&& i<t){
+            arr[i++]=temp->data;
+            temp=temp->next;
+        }
+      
+    }
+    void repdupicates(){
+        for(int i=0;i<t;i++){
+            len[i]=1;
+            for(int j=i+1;j<t;j++){
+                if(arr[i]==arr[j]){
+                    len[i]++;
+                    arr[j]='0';
+                }
+            }
+        }
+      
+    }
+    
+    void push(){
+        for(int i=0;i<t;i++){
+            if(arr[i]!='0'){
+                for(int u=0;u<len[i];u++){
+                  
+                    p.push(arr[i]);
+                }
+            }
+        }
+    }
+    void stackins(){
+        while(!p.empty()){
+            char m=p.top();
+           k.push(m);
+            p.pop();
+        }
+    }
+    void stackdisp(){
+        while(!k.empty()){
+            cout<<k.top();
+            k.pop();
+        }
+    }
+    
+};
+
+int main(){
+    LinkedList l;
+    
+//   char a;
+//   for(int i=0;i<10;i++){
+//       cin>>a;
+//       
+//   }
+string h;
+cout<<"enter the string"<<endl;
+cin>>h;
+l.append(h);
+   
+    l. apprndarray();
+l.repdupicates();
+l.push();
+l.stackins();
+l.stackdisp();
+ 
+    
+}
+************************************************************************************************************************************************************************
+#include<iostream>
+#include<stack>
+using namespace std;
+class ITFConversion{
+	public:
+		stack<char> st;
+		string res;
+		int prec(char c) {
+    		
+    		//Write code here
+    		if(c=='+'||c=='-'){
+    		    return 1;
+    		}
+    		else if(c=='*'||c=='/'){
+    		    return 2;
+    		}
+    		
+		}
+		string infixToPostfix(string s) {			
+		   
+		    //Write code here
+		    for(int i=0;i<s.length();i++){
+		        if(isoperator(s[i])){
+		            if(st.empty()){
+		                st.push(s[i]);
+		            }
+		            else{
+		                while(!st.empty() && prec(st.top())>=prec(s[i])){
+		                    res+=st.top();
+		                    st.pop();
+		                }
+		                st.push(s[i]);
+		                
+		            }
+		        }
+		        else{
+		            res+=s[i];
+		        }
+		    }
+		    while(!st.empty()){
+		        res+=st.top();
+		        st.pop();
+		    }
+		    return res;
+		    
+		}
+		bool isoperator(char c){
+		    if(c=='+'||c=='-'||c=='*'||c=='/'){
+		        return true;
+		    }
+		    else{
+		        return false;
+		    }
+		}
+};
+ 
+int main() {
+    ITFConversion itf;
+    string exp ;
+	cout<<"Enter expression"<<endl;
+	cin>>exp;
+	cout<<"Postfix form: "<<itf.infixToPostfix(exp)<<endl;
+	return 0;
+}
+*****************************************************************************************************************************************************************************
+/* C++ program to implement a stack that supports getMinimum() in O(1) time and O(1) extra space.
+Sample Test Case:
+Number Inserted: 3
+Number Inserted: 5
+Minimum Element in the stack is: 3
+Number Inserted: 2
+Number Inserted: 1
+Minimum Element in the stack is: 1
+Top Most Element Removed: 1
+Minimum Element in the stack is: 2
+Top Most Element Removed: 2
+Top Most Element is: 5
+
+*/
+
+#include <iostream>
+#include <stack>
+using namespace std;
+
+struct MyStack{
+    public:
+	stack <int> s;
+	int minele;
+	
+	void getMin(){
+	    
+		cout<<"Minimum Element in the stack is: "<<minele<<endl;
+	}
+
+	void peek(){
+	    
+	    //write your code here
+	    cout<<"Top Most Element is: "<<s.top()<<endl;
+	}
+
+	void pop(){
+	    int t=s.top();
+	    if(s.top()==minele){
+	        s.pop();
+	        minele=s.top();
+	        s.pop();
+	    }
+	    cout<<"Top Most Element Removed: "<<t<<endl;
+
+	}
+	
+	void push(int x){
+	    
+		//write your code here
+		if(s.empty()){
+		    minele=x;
+		    s.push(x);
+		}
+		else{
+		    if(x<minele){
+		        s.push(minele);
+		        s.push(x);
+		        minele=x;
+		    }
+		    else{
+		        s.push(x);
+		    }
+		    
+		}
+		
+		cout<<"Number Inserted: "<<x<<endl;
+	}
+};
+int main(){
+	MyStack s;
+	s.push(3);
+	s.push(5);
+	s.getMin();
+	s.push(2);
+	s.push(1);
+	s.getMin();
+	s.pop();
+	s.getMin();
+	s.pop();
+	s.getMin();
+	return 0;
+}
+****************************************************************************************************************************************************************************
+// count of elements in stack
+#include<iostream>
+using namespace std;
+#include<stack>
+
+class mystack{
+    public:
+    stack<int>l;
+    int k=0;
+    void push1(int x){
+        k++;
+        if(l.empty()){
+            l.push(x);
+            l.push(k);
+        }
+        else{
+            l.pop();
+            l.push(x);
+            l.push(k);
+        }
+    }
+    void pop1(){
+      
+    
+        while(k>=1){
+              k--;
+            int y=l.top();
+            l.pop();
+            int z=l.top();
+            l.pop();
+            l.push(k);
+            cout<<y<<endl;
+            cout<<z<<endl;
+        }
+        if(k==0){
+            cout<<l.top()<<endl;
+           exit(0);
+        }
+    }    
+    };
+int main(){
+    mystack d;
+    d.push1(3);
+    d.push1(5);
+    d.push1(6);
+    d.push1(10);
+    d.pop1();
+     d.pop1(); 
+      d.pop1();
+       d.pop1();
+        d.pop1();
+     
+    
+    
+}
+***************************************************************************************************************************************************************************
+reverse a stack using recursion
+#include<bits/stdc++.h>
+using namespace std;
+stack<int>st;
+void insertatbottom(int h){
+    if(st.empty()){
+        st.push(h);
+    }
+    else{
+        int g=st.top();
+        st.pop();
+        insertatbottom(h);
+        st.push(g);
+    }
+}
+void reverse(){
+    if(!st.empty()){
+        int h=st.top();
+        st.pop();
+        reverse();
+        insertatbottom(h);
+    }
+}
+int main(){
+    
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    reverse();
+    while(!st.empty()){
+        cout<<st.top()<<endl;
+        st.pop();
+    }
+}
+*****************************************************************************************************************************************************************
+sort a stack using recursion
+#include<bits/stdc++.h>
+using namespace std;
+stack<int>st;
+void insertatpos(int d){
+    if(st.empty()){
+        st.push(d);
+    }
+    else if(st.top()<d){
+        st.push(d);
+    }
+    else{
+        int u=st.top();
+        st.pop();
+        insertatpos(d);
+        st.push(u);
+    }
+}
+void sort(){
+    if(!st.empty()){
+        int h=st.top();
+        st.pop();
+        sort();
+        insertatpos(h);
+    }
+}
+int main(){
+    
+    st.push(30);
+    st.push(-5);
+    st.push(18);
+    st.push(14);
+        st.push(-3);
+    sort();
+    while(!st.empty()){
+        cout<<st.top()<<endl;
+        st.pop();
+    }
+}
+*********************************************************************************************************************************************************************
+delete middle element of stackj
+#include<bits/stdc++.h>
+using namespace std;
+stack<int>st;
+int len=0;
+int h=0;
+void insertapos(int g){
+    
+   if(len%2!=0){
+       if(h!=len/2){
+           st.push(g);
+           h++;
+       }
+       else{
+           h++;
+       }
+   }
+   else {
+       if(h!=((len/2)-1)){
+           st.push(g);
+           h++;
+       }
+       else{
+           h++;
+       }
+   }
+}
+void deletemid(){
+    if(!st.empty()){
+      
+        int u=st.top();
+          len++;
+        st.pop();
+        
+        deletemid();
+       insertapos(u);
+    }
+}
+int main(){
+    
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+        st.push(5);
+          st.push(6);
+            st.push(7);
+    deletemid();
+    while(!st.empty()){
+        cout<<st.top()<<endl;
+        st.pop();
+    }
+}
+*************************************************************************************************************************************************************************
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// reverses individual words of a string
+void reverseWords(string str)
+{
+    stack<char> st;
+ 
+    // Traverse given string and push all characters
+    // to stack until we see a space.
+    for (int i = 0; i < str.length(); ++i) {
+        if (str[i] != ' ')
+            st.push(str[i]);
+ 
+        // When we see a space, we print contents
+        // of stack.
+        else {
+            while (st.empty() == false) {
+                cout << st.top();
+                st.pop();
+            }
+            cout << " ";
+        }
+    }
+ 
+    // Since there may not be space after
+    // last word.
+    while (st.empty() == false) {
+        cout << st.top();
+        st.pop();
+    }
+}
+ 
+// Driver program to test function
+int main()
+{
+    string str = "Geeks for Geeks";
+    reverseWords(str);
+    return 0;
+}
+*********************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+class Node{
+     public:
+    int data;
+    Node*left;
+    Node*right;
+   
+    Node(int d){
+        data=d;
+        left=NULL;
+        right=NULL;
+        
+    }
+};
+class BinaryTree{
+    public:
+    Node*root=NULL;
+    BinaryTree(int d){
+        Node*nptr=new Node(d);
+        root=nptr;
+    }
+    
+    Node*add_child(Node*parent,int d,int lr){
+        Node*cnode=new Node(d);
+        if(lr==0){
+            parent->left=cnode;
+        }
+        else{
+            parent->right=cnode;
+        }
+        return cnode;
+    }
+    void inorder(Node*node){
+        if(node==NULL){
+           return;
+        }
+        else{
+            inorder(node->left);
+            cout<<node->data<<endl;
+            inorder(node->right);
+        }
+    }
+    void preorder(Node*node){
+        if(node==NULL){
+            return;
+        }
+        else{
+            cout<<node->data<<endl;
+            preorder(node->left);
+            preorder(node->right);
+        }
+    }
+    void postorder(Node*node){
+        if(node==NULL){
+            return;
+        }
+        else{
+           
+            preorder(node->left);
+            preorder(node->right);
+             cout<<node->data<<endl;
+        }
+    }
+    
+    
+};
+int main(){
+    BinaryTree bt(10);
+    Node*l=bt.add_child(bt.root,20,0);
+    Node*r=bt.add_child(bt.root,50,1);
+    Node*l1l=bt.add_child(l,70,0);
+    Node*l1r=bt.add_child(l,80,1);
+    Node*r1l=bt.add_child(r,40,0);
+    Node*r1r=bt.add_child(r,90,1);
+    // bt.inorder(bt.root);
+    // bt.preorder(bt.root);
+    bt.postorder(bt.root);
+    
+}
+*******************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int d){
+        data=d;
+        next=NULL;
+    }
+};
+class queue{
+    public:
+    Node*front=NULL;
+    Node*back=NULL;
+    void nqueue(int d){
+        Node*nptr=new Node(d);
+        if(front==NULL){
+            front=nptr;
+            back=nptr;
+        }
+        else{
+            Node*m=front;
+            while(m->next!=NULL){
+                m=m->next;
+            }
+            m->next=nptr;
+            back=nptr;
+        }
+    }
+        void dequeue(){
+            Node*k=front;
+            cout<<k->data<<endl;
+            front=front->next;
+        }
+    
+    void reverse(){
+        Node*temp=front;
+        Node*prev=NULL;
+        back=front;
+        while(temp!=NULL){
+            Node*n=temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=n;
+        }
+        front=prev;
+    }
+    
+};
+int main(){
+    queue l;
+    l.nqueue(20);
+    l.nqueue(40);
+    l.nqueue(42);
+    l.reverse();
+    l.dequeue();
+     l.dequeue();
+      l.dequeue();
+}
+*************************************************************************************************************************************************************************
+subtract 2 polynomials
+class term{
+    public:
+    int coeff;
+    int exp1;
+    term*next;
+    term(int c,int e){
+        coeff=c;
+        exp1=e;
+        next=NULL;
+    }
+};
+class polynomial{
+    public:
+    term*hptr=NULL;
+    void append(int c,int e){
+        term*temp=new term(c,e);
+        if(hptr==NULL){
+            hptr=temp;}
+            
+            else{
+                term*ty=hptr;
+                while(ty->next!=NULL){
+                    ty=ty->next;
+                }
+                ty->next=temp;
+            }
+        }
+        polynomial add(polynomial p1){
+            polynomial pr;
+            term*r=hptr;
+            term*tq=p1.hptr;
+            while(r!=NULL && tq!=NULL){
+                if(r->exp1==tq->exp1){
+                    pr.append((r->coeff-tq->coeff),r->exp1);
+                    r=r->next;
+                    tq=tq->next;
+                }
+                else if(r->exp1<tq->exp1){
+                    pr.append(tq->coeff,tq->exp1);
+                    tq=tq->next;
+                }
+                else if(tq->exp1<r->exp1){
+                    pr.append(r->coeff,r->exp1);
+                    r=r->next;
+                }
+            }
+            if(r==NULL && tq!=NULL){
+                while(tq!=NULL){
+                    pr.append(tq->coeff,tq->exp1);
+                    tq=tq->next;
+                }
+            }
+            else if(tq==NULL && r!=NULL){
+                while(r!=NULL){pr.append(r->coeff,r->exp1);
+            
+            r=r->next;
+                }
+        }
+       return pr;
+        }
+        void display(){
+            term*i=hptr;
+            while(i!=NULL){
+                if(i->exp1>=1 && i->next->coeff>0){
+                cout<<i->coeff<<"x^"<<i->exp1<<"+";
+            }
+            else if(i->exp1==0){
+                cout<<i->coeff<<endl;
+            }
+            else{
+                cout<<i->coeff<<"x^"<<i->exp1;
+            }
+            i=i->next;
+        }
+    }
+};
+
+   
+   int main() {
+    polynomial p,p1,p3,pr;
+ p.append(3,4);
+ p.append(-3,3);
+ p.append(7,2);
+ p.append(7,1);
+ p.append(5,0);
+ p1.append(5,4);
+ p1.append(2,2);
+ p1.append(-8,0);
+ p1.display();
+    p.display();
+   polynomial k=p.add(p1);
+    k.display();
+    
+  
+}
+*********************************************************************************************************************************************************************
+sum list reverse
+ex 1 2 3 4 5
+output 5 9 12 14 15
+#include<iostream>
+
+using namespace std;
+int k1;
+int z=0;
+int arr[100];
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int d){
+        data=d;
+        next=NULL;
+    }
+};
+class linkedlist{
+    public:
+    Node*hptr=NULL;
+    void append(int d){
+        k1++;
+        Node*r=new Node(d);
+        if( hptr==NULL){
+            hptr=r;
+        }
+        else{
+            Node*y=hptr;
+            while(y->next!=NULL){
+                y=y->next;
+            }
+            y->next=r;
+        }
+    }
+    void Display(){       
+        Node *t=hptr;
+        while(t!=NULL){
+            cout<<t->data<<endl;
+            t=t->next;
+        }
+    }
+    void reverse(){
+        Node*t=hptr;
+        Node*prev=NULL;
+        while(t!=NULL){
+            Node*k=t->next;
+            t->next=prev;
+            prev=t;
+            t=k;
+        }
+        hptr=prev;
+    }
+    void appendarray(){
+        Node*u4=hptr;
+        int i2=0;
+        while(i2<k1){
+            arr[i2]=u4->data;
+            u4=u4->next;
+            i2++;
+        }
+    }
+  
+    
+};
+int main(){
+    linkedlist t;
+    linkedlist q;
+    t.append(1);
+    t.append(2);
+    t.append(3);
+    t.append(4);
+    t.append(5);
+    t.append(6);
+    t.reverse();
+    t.appendarray();
+    int f=k1;
+  for(int i=0;i<f;i++){
+      z=z+arr[i];
+      q.append(z);
+  }
+
+  q.Display();
+}
+********************************************************************************************************************************************************************
+program to insert in a binary tree
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node*left;
+    Node*right;
+    Node(int d){
+        data=d;
+        left=NULL;
+        right=NULL;
+    }
+};
+class tree{
+    public:
+    Node*root=NULL;
+   Node* insertnode(Node*y,int f){
+        if(y==NULL){
+            Node*g=new Node(f);
+            root=g;
+            return root;
+        }
+        else{
+            queue<Node*>q;
+            q.push(root);
+            while(!q.empty()){
+                Node*temp=q.front();
+                q.pop();
+                if(temp->left==NULL){
+                    Node*n=new Node(f);
+                    temp->left=n;
+                    return root;
+                }
+                else{
+                    q.push(temp->left);
+                }
+                if(temp->right==NULL){
+                    Node*s=new Node(f);
+                    temp->right=s;
+                    return root;
+                }
+                else{
+                    q.push(temp->right);
+                }
+            }
+        }
+    }
+    void inorder(Node* temp)
+{
+    if (temp == NULL)
+        return;
+ 
+    inorder(temp->left);
+    cout << temp->data << ' ';
+    inorder(temp->right);
+}
+};
+int main(){
+    tree p;
+    Node*h=p.insertnode(p.root,12);
+    Node*j=p.insertnode(p.root,89);
+    Node*j1=p.insertnode(p.root,879);
+    Node*j2=p.insertnode(p.root,59);
+    p.inorder(h);
+}
+
+**************************************************************************************************************************************************************************
+ int get_height(Node *root){
+            Node *temp=root;
+            if(temp==NULL){
+                return -1;
+            }
+            else{
+                return 1 + max(get_height(root->left),get_height(root->right));
+            }
+        }
+        bool latinvertest(Node *root, Node *lroot, Node *rroot){      //lateral inversion test
+            if(root==NULL){
+                return true;
+            }
+            if(lroot==NULL && rroot==NULL){
+                return true;
+            }
+            if(lroot&&!rroot || !lroot&&rroot || lroot->data!=rroot->data){
+                return false;
+            }
+            else{
+                return latinvertest(root,lroot->left,rroot->right) && latinvertest(root,lroot->right,rroot->left);
+            }
+        }
+        bool checkifbst(){
+            
+        }
+};
+int main(){
+    // BinaryTree bt(10);
+    // Node *l = bt.add_Child(bt.rptr,20,0);
+    // Node *r = bt.add_Child(bt.rptr,50,1);
+    // Node *ll = bt.add_Child(l,70,0);
+    // Node *lr = bt.add_Child(l,80,1);
+    // Node *rl = bt.add_Child(r,40,0);
+    // Node *rr = bt.add_Child(r,90,1);
+    // Node *rrr=bt.add_Child(rr,95,1);
+   // bt.inorder(bt.rptr);
+   // bt.preorder(bt.rptr);
+   // bt.postorder(bt.rptr);
+*****************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+        int data;
+        Node *left,*right;
+        Node(int d){
+            data = d;
+            left = NULL;
+            right = NULL;
+        }
+        void display(){
+            cout<<data<<endl;
+        }
+};
+class BinaryTree{
+    public:
+        Node *rptr = NULL;
+        int height=-1;
+        BinaryTree(int d){
+            Node *nptr = new Node(d);
+            rptr = nptr;
+        }
+        Node* add_Child(Node *parent,int d,int lor){
+            Node *cnode = new Node(d);
+            if(lor == 0){
+                parent->left = cnode;
+            }
+            else{
+                parent->right = cnode;    
+            }
+            return cnode;
+        }
+        void inorder(Node *node){
+            if(node == NULL){
+                return;
+            }
+            else{
+                inorder(node->left);
+                node->display();
+                inorder(node->right);
+            }
+        }
+        void preorder(Node *node){
+            if(node == NULL){
+                return;
+            }
+            else{
+                node->display();
+                preorder(node->left);
+                preorder(node->right);
+            }
+        }
+        void postorder(Node *node){
+            if(node == NULL){
+                return;
+            }
+            else{
+                postorder(node->left);
+                postorder(node->right);
+                node->display();
+            }
+        }
+        int get_height(Node *root){
+            Node *temp=root;
+            if(temp==NULL){
+                return -1;
+            }
+            else{
+                return 1 + max(get_height(root->left),get_height(root->right));
+            }
+        }
+        bool latinvertest(Node *root, Node *lroot, Node *rroot){      //lateral inversion test
+            if(root==NULL){
+                return true;
+            }
+            if(lroot==NULL && rroot==NULL){
+                return true;
+            }
+            if(lroot&&!rroot || !lroot&&rroot || lroot->data!=rroot->data){
+                return false;
+            }
+            else{
+                return latinvertest(root,lroot->left,rroot->right) && latinvertest(root,lroot->right,rroot->left);
+            }
+        }
+        bool checkifbst(){
+            
+        }
+};
+int main(){
+    // BinaryTree bt(10);
+    // Node *l = bt.add_Child(bt.rptr,20,0);
+    // Node *r = bt.add_Child(bt.rptr,50,1);
+    // Node *ll = bt.add_Child(l,70,0);
+    // Node *lr = bt.add_Child(l,80,1);
+    // Node *rl = bt.add_Child(r,40,0);
+    // Node *rr = bt.add_Child(r,90,1);
+    // Node *rrr=bt.add_Child(rr,95,1);
+   // bt.inorder(bt.rptr);
+   // bt.preorder(bt.rptr);
+   // bt.postorder(bt.rptr);
+   // cout<<"the height is: "<<bt.get_height(bt.rptr)<<endl;
+    // BinaryTree bt(1);
+    // Node *l=bt.add_Child(bt.rptr,2,0);
+    // Node *r=bt.add_Child(bt.rptr,2,1);
+    // Node *ll=bt.add_Child(l,3,0);
+    // Node *lr=bt.add_Child(l,4,1);
+    // Node *rl=bt.add_Child(r,4,0);
+    // Node *rr=bt.add_Child(r,3,1);
+    // Node *lll=bt.add_Child(ll,5,0);
+    // Node *llr=bt.add_Child(ll,6,1);
+    // Node *lrl=bt.add_Child(lr,7,0);
+    // Node *rlr=bt.add_Child(rl,7,1);
+    // Node *rrl=bt.add_Child(rr,6,0);
+    // Node *rrr=bt.add_Child(rr,5,1);
+    // if(bt.latinvertest(bt.rptr,bt.rptr->left,bt.rptr->right)){
+    //     cout<<"it is having a lateral symmetry"<<endl;
+    // }
+    // else{
+    //     cout<<"it is not having a lateral symmetry"<<endl;
+    // }
+    
+    // BinaryTree bt(10);
+    // Node *l=bt.add_Child(bt.rptr,8,0);
+    // Node *r=bt.add_Child(bt.rptr,14,1);
+    // Node *ll=bt.add_Child(l,7,0);
+    // Node *lr=bt.add_Child(l,9,1);
+    // Node *rl=bt.add_Child(r,12,0);
+    // Node *rr=bt.add_Child(r,15,1);
+    // if(bt.checkifbst(bt.rptr,bt.rptr->left,bt.rptr->right)){
+    //     cout<<"it is bst"<<endl;
+    // }
+    // else{
+    //     cout<<"it is not bst"<<endl;
+    // }
+}
+*******************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+int m=0;
+class Node{
+    public:
+    int data;
+    Node*left,*right;
+    
+    Node(int d){
+        data=d;
+        left=NULL;
+        right=NULL;
+    }
+};
+class BST{
+    public:
+    Node*rptr;
+    BST(){
+        rptr=NULL;
+    }
+    Node* addnode(Node*r,int d){
+        if(r==NULL){
+            Node*nptr=new Node(d);
+            return nptr;
+        }
+        else if(r->data>d){
+            // Node*nptr=new Node(d);
+            r->left=addnode(r->left,d);
+            return r;
+        }
+        else{
+            r->right=addnode(r->right,d);
+            
+            return r;
+        }
+    }
+    void inorder(Node*r){
+        if(r==NULL){
+            return;
+        }
+        else{
+            inorder(r->left);
+            cout<<r->data<<endl;
+            inorder(r->right);
+        }
+    }
+    // int search(Node*r,int d){
+    //     if(r==NULL){
+    //         return m;
+    //     }
+    //     else{
+            
+    //         if(d==r->data){
+    //             m=1;
+    //             return m;
+    //         }
+    //         else{
+    //             search(r->left,d);
+    //             search(r->right,d);
+    //         }
+    //     }
+    // }
+    int search(Node*r,int d){
+        if(r==NULL){
+            return -1;
+        }
+        else if(d==r->data){
+            return 1;
+        }
+        else if(r->data>d){
+            return search(r->left,d);
+        }
+        else{
+            return search(r->right,d);
+        }
+    }
+    
+};
+int main(){
+    BST bst;
+    Node*t=bst.addnode(NULL,10);
+    t=bst.addnode(t,7);
+   t=bst.addnode(t,15);
+    t=bst.addnode(t,8);
+    t=bst.addnode(t,12);
+    bst.inorder(t);
+    int y=bst.search(t,14);
+    cout<<y<<endl;
+    
+}
+*************************************************************************************************************************************************************************
+#include<iostream>
+using namespace std;
+int max=0;
+class Node{
+    public:
+    int data;
+    Node *left,*right;
+    
+    Node(int d){
+        data=d;
+        left=NULL;
+        right=NULL;
+    }
+    void display(){
+        cout<<data<<endl;
+    }
+};
+
+class BST{
+       public:
+       Node *rptr;
+       BST(){
+           rptr=NULL;
+       }
+       Node* addNode(Node *r,int d){
+           if(r==NULL){
+               Node *nptr=new Node(d);
+               return nptr;
+           }
+           else if(r->data>d){
+               r->left=addNode(r->left,d);
+               return r;
+           }
+           else{
+               r->right=addNode(r->right,d);
+               return r;
+           }
+       }
+       Node* search(Node *r,int val){
+            if(r==NULL){
+                return NULL;
+            }
+            else if(r->data == val){
+                return r;
+            }
+            else if(r->data>val){
+                return search(r->left,val);
+            }
+            else{
+                return search(r->right,val);
+            }
+       }
+       void inorder(Node *r){
+           if(r==NULL){
+               return;
+           }
+           else{
+               inorder(r->left);
+               r->display();
+               inorder(r->right);
+           }
+       }
+       Node*getparent(Node*m,Node*n){
+           if(m->left==n){
+               return m;
+           }
+           else if(m->right==n){
+               return m;
+           }
+           else{
+               if(m->data>n->data){
+                   getparent(m->left,n);
+               }
+               else{
+                   getparent(m->right,n);
+               }
+           }
+       }
+       Node* getmax(Node*node){
+           Node*p;
+          while(node->left!=NULL){
+               int max=node->left->data;
+               Node*p=node->left;
+               node=node->left;
+               if(node->left->data>max){
+                   max=node->left->data;
+                   p=node->left;
+               }
+           }
+           return p;
+       }
+         Node* getmin(Node*node){
+            
+          while(node->left!=NULL){
+               
+               
+               node=node->left;
+              
+           }
+           return node;
+       }
+       void delete1(Node*r,int data){
+           if(r==NULL){
+               return ;
+           }
+           else{
+               Node*tptr=search(r,data);
+               if(tptr==NULL){
+                   cout<<"element can't be deleted"<<endl;
+               }
+               else{
+                   Node*ptr=getparent(r,tptr);
+                 if(tptr->left==NULL && tptr->right==NULL){
+                     if(ptr->left==tptr){
+                         ptr->left=NULL;
+                     }
+                     else{
+                         ptr->right=NULL;
+                     }
+                     delete(tptr);
+                 }
+                 else if((tptr->left!=NULL && tptr->right==NULL) ||( tptr->right!=NULL&& tptr->left==NULL)){
+                     if(ptr->left==tptr){
+                         if(tptr->right!=NULL){
+                             ptr->left=tptr->right;
+                         }
+                         else{
+                             ptr->left=tptr->left;
+                         }
+                         delete(tptr);
+                     }
+                     else{
+                          if(ptr->right==tptr){
+                         if(tptr->right!=NULL){
+                             ptr->right=tptr->right;
+                         }
+                         else{
+                             ptr->right=tptr->left;
+                         }
+                         delete(tptr);
+                     }
+                     }
+                 }
+                 else{
+                     Node*inorders=getmin(tptr->right);
+                     int r1=inorders->data;
+                     delete1(r,r1);
+                     tptr->data=r1;
+                   
+                                      }
+                                      
+                 
+               }
+           }
+       }
+};
+int main(){
+    BST bst;
+    Node *t = bst.addNode(NULL,11);
+  Node*  m = bst.addNode(t,7);
+    t = bst.addNode(t,15);
+      t = bst.addNode(t,6);
+    t = bst.addNode(t,9);
+    t = bst.addNode(t,12);
+    t = bst.addNode(t,8);
+    t = bst.addNode(t,10);
+      t = bst.addNode(t,14);
+       
+    bst.inorder(m);
+   Node* res = bst.search(t,9);
+    if(res!=NULL){
+        cout<<"Element found"<<endl;
+    }
+    else{
+        cout<<"Element Not found!"<<endl;
+    }
+   bst.delete1(t,7);
+   bst.inorder(m);
+   
+    return 0;
+}
+*************************************************************************************************************************************************************************
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>
+using namespace std;
+struct PriorityQueue
+{
+private:
+    vector<int> A;
+    int PARENT(int i) {
+        return (i - 1) / 2;
+    }
+    int LEFT(int i) {
+        return (2*i + 1);
+    }
+    int RIGHT(int i) {
+        return (2*i + 2);
+    }
+    void heapify_down(int i)
+    {
+        int left = LEFT(i);
+        int right = RIGHT(i);
+ 
+        int largest = i;
+        if (left < size() && A[left] > A[i]) {
+            largest = left;
+        }
+ 
+        if (right < size() && A[right] > A[largest]) {
+            largest = right;
+        }
+        if (largest != i)
+        {
+            swap(A[i], A[largest]);
+            heapify_down(largest);
+        }
+    }
+    void heapify_up(int i)
+    {
+        if (i && A[PARENT(i)] < A[i])
+        {
+            swap(A[i], A[PARENT(i)]);
+ 
+            heapify_up(PARENT(i));
+        }
+    }
+ 
+public:
+    unsigned int size() {
+        return A.size();
+    }
+ 
+    bool empty() {
+        return size() == 0;
+    }
+ 
+    void push(int key)
+    {
+        A.push_back(key);
+        int index = size() - 1;
+        heapify_up(index);
+    }
+ 
+    void pop()
+    {
+        try {
+            if (size() == 0)
+            {
+                throw out_of_range("Vector<X>::at() : "
+                        "index is out of range(Heap underflow)");
+            }
+            A[0] = A.back();
+            A.pop_back();
+            heapify_down(0);
+        }
+        catch (const out_of_range &oor) {
+            cout << endl << oor.what();
+        }
+    }
+    int top()
+    {
+        try {
+            if (size() == 0)
+            {
+                throw out_of_range("Vector<X>::at() : "
+                        "index is out of range(Heap underflow)");
+            }
+ 
+            return A.at(0);        // or return A[0];
+        }
+        catch (const out_of_range &oor) {
+            cout << endl << oor.what();
+        }
+    }
+};
+ 
+int main()
+{
+    PriorityQueue pq;
+    pq.push(3);
+    pq.push(2);
+    pq.push(15);
+ 
+    cout << "Size is " << pq.size() << endl;
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    pq.push(5);
+    pq.push(4);
+    pq.push(45);
+ 
+    cout << endl << "Size is " << pq.size() << endl;
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    cout << pq.top() << " ";
+    pq.pop();
+ 
+    cout << endl << boolalpha << pq.empty();
+ 
+    pq.top();    // top operation on an empty heap
+    pq.pop();    // pop operation on an empty heap
+ 
+    return 0;
+}
+*******************************************************************************************************************************************************************-**********
+graphs
+// C++ program to print DFS traversal from
+// a given vertex in a given graph
+#include <bits/stdc++.h>
+using namespace std;
+
+// Graph class represents a directed graph using adjacency list representation
+class Graph {
+public:
+	map<int, bool> visited;
+	map<int, list<int> > adj;
+	// function to add an edge to graph
+	void addEdge(int v, int w);
+	// DFS traversal of the vertices 	// reachable from v
+	void DFS(int v);
+};
+
+void Graph::addEdge(int v, int w)
+{
+	adj[v].push_back(w); // Add w to v’s list.
+}
+
+void Graph::DFS(int v)
+{
+	visited[v] = true;
+	cout << v << " ";
+	list<int>::iterator i;
+	for (i = adj[v].begin(); i != adj[v].end(); ++i)
+		if (!visited[*i])
+			DFS(*i);
+}
+
+// Driver code
+int main(){
+	Graph g;
+	g.addEdge(0, 1);
+	g.addEdge(0, 2);
+	g.addEdge(1, 2);
+	g.addEdge(2, 0);
+	g.addEdge(2, 3);
+	g.addEdge(3, 3);
+
+	cout << "Following is Depth First Traversal"
+			" (starting from vertex 2) \n";
+	g.DFS(2);
+
+	return 0;
+}
+
+// improved by Vishnudev C
+// C++ program to print DFS traversal from
+// a given vertex in a given graph
+#include <bits/stdc++.h>
+using namespace std;
+
+// Graph class represents a directed graph using adjacency list representation
+class Graph {
+public:
+	map<int, bool> visited;
+	map<int, list<int> > adj;
+	// function to add an edge to graph
+	void addEdge(int v, int w);
+	// DFS traversal of the vertices 	// reachable from v
+	void DFS(int v);
+};
+
+void Graph::addEdge(int v, int w)
+{
+	adj[v].push_back(w); // Add w to v’s list.
+}
+
+void Graph::DFS(int v)
+{
+	visited[v] = true;
+	cout << v << " ";
+	list<int>::iterator i;
+	for (i = adj[v].begin(); i != adj[v].end(); ++i)
+		if (!visited[*i])
+			DFS(*i);
+}
+
+// Driver code
+int main(){
+	Graph g;
+	g.addEdge(0, 1);
+	g.addEdge(0, 2);
+	g.addEdge(1, 2);
+	g.addEdge(2, 0);
+	g.addEdge(2, 3);
+	g.addEdge(3, 3);
+
+	cout << "Following is Depth First Traversal"
+			" (starting from vertex 2) \n";
+	g.DFS(2);
+
+	return 0;
+}
+
+// improved by Vishnudev C
+*******************************************************************************************************************************************************************************
+witout recursion traversal
+// An Iterative C++ program to do DFS traversal from
+// a given source vertex. DFS(int s) traverses vertices
+// reachable from s.
+#include<bits/stdc++.h>
+using namespace std;
+
+// This class represents a directed graph using adjacency
+// list representation
+class Graph
+{
+	int V; // No. of vertices
+	list<int> *adj; // adjacency lists
+public:
+	Graph(int V); // Constructor
+	void addEdge(int v, int w); // to add an edge to graph
+	void DFS(int s); // prints all vertices in DFS manner
+	// from a given source.
+};
+
+Graph::Graph(int V)
+{
+	this->V = V;
+	adj = new list<int>[V];
+}
+
+void Graph::addEdge(int v, int w)
+{
+	adj[v].push_back(w); // Add w to v’s list.
+}
+
+// prints all not yet visited vertices reachable from s
+void Graph::DFS(int s)
+{
+	// Initially mark all vertices as not visited
+	vector<bool> visited(V, false);
+
+	// Create a stack for DFS
+	stack<int> stack;
+
+	// Push the current source node.
+	stack.push(s);
+
+	while (!stack.empty())
+	{
+		// Pop a vertex from stack and print it
+		int s = stack.top();
+		stack.pop();
+
+		// Stack may contain same vertex twice. So
+		// we need to print the popped item only
+		// if it is not visited.
+		if (!visited[s])
+		{
+			cout << s << " ";
+			visited[s] = true;
+		}
+
+		// Get all adjacent vertices of the popped vertex s
+		// If a adjacent has not been visited, then push it
+		// to the stack.
+		for (auto i = adj[s].begin(); i != adj[s].end(); ++i)
+			if (!visited[*i])
+				stack.push(*i);
+	}
+}
+
+// Driver program to test methods of graph class
+int main()
+{
+	Graph g(5); // Total 5 vertices in graph
+	g.addEdge(1, 0);
+	g.addEdge(0, 2);
+	g.addEdge(2, 1);
+	g.addEdge(0, 3);
+	g.addEdge(1, 4);
+
+	cout << "Following is Depth First Traversal\n";
+	g.DFS(0);
+
+	return 0;
+}
+**************************************************************************************************************************************************************************
+// Program to print BFS traversal from a given source vertex. BFS(int s) traverses vertices reachable from s.
+#include<iostream>
+#include <list>
+using namespace std;
+
+// This class represents a directed graph using adjacency list representation
+class Graph{
+	int V; // No. of vertices
+	// Pointer to an array containing adjacency lists
+	list<int> *adj;
+public:
+	Graph(int V); // Constructor
+	// function to add an edge to graph
+	void addEdge(int v, int w);
+	// prints BFS traversal from a given source s
+	void BFS(int s);
+};
+
+Graph::Graph(int V){
+	this->V = V;
+	adj = new list<int>[V];
+}
+
+void Graph::addEdge(int v, int w){
+	adj[v].push_back(w); // Add w to v’s list.
+}
+
+void Graph::BFS(int s){
+	// Mark all the vertices as not visited
+	bool *visited = new bool[V];
+	for(int i = 0; i < V; i++)
+		visited[i] = false;
+	// Create a queue for BFS
+	list<int> queue;
+	// Mark the current node as visited and enqueue it
+	visited[s] = true;
+	queue.push_back(s);
+	// 'i' will be used to get all adjacent vertices of a vertex
+	list<int>::iterator i;
+
+	while(!queue.empty()){
+		// Dequeue a vertex from queue and print it
+		s = queue.front();
+		cout << s << " ";
+		queue.pop_front();
+		// Get all adjacent vertices of the dequeue vertex s. If a adjacent has not been visited,then mark it visited and enqueue it
+		for (i = adj[s].begin(); i != adj[s].end(); ++i){
+			if (!visited[*i]){
+				visited[*i] = true;
+				queue.push_back(*i);
+			}
+		}
+	}
+}
+int main(){
+    int v;
+	Graph g(4);
+	g.addEdge(0, 1);
+	g.addEdge(0, 2);
+	g.addEdge(1, 2);
+	g.addEdge(2, 0);
+	g.addEdge(2, 3);
+	g.addEdge(3, 3);
+	cout<<"enter starting vertex"<<endl;
+	cin>>v;
+	cout << "Following is Breadth First Traversal"<<endl;
+	g.BFS(v);
+	return 0;
+}
+************************************************************************************************************************************************************************
+// C++ program for implementation of KMP pattern searching algorithm
+#include <bits/stdc++.h>
+
+void computeLPSArray(char* pat, int M, int* lps);
+// Prints occurrences of txt[] in pat[]
+void KMPSearch(char* pat, char* txt){
+	int M = strlen(pat);
+	int N = strlen(txt);
+	// create lps[] that will hold the longest prefix suffix values for pattern
+	int lps[M];
+	// Preprocess the pattern (calculate lps[] array)
+	computeLPSArray(pat, M, lps);
+	int i = 0; // index for txt[]
+	int j = 0; // index for pat[]
+	while (i < N) {
+		if (pat[j] == txt[i]) {
+			j++;
+			i++;
+		}
+		if (j == M) {
+			printf("Found pattern at index %d ", i - j);
+			j = lps[j - 1];
+		}
+		// mismatch after j matches
+		else if (i < N && pat[j] != txt[i]) {
+			// Do not match lps[0..lps[j-1]] characters,they will match anyway
+			if (j != 0)
+				j = lps[j - 1];
+			else
+				i = i + 1;
+		}
+	}
+}
+// Fills lps[] for given patttern pat[0..M-1]
+void computeLPSArray(char* pat, int M, int* lps){
+	// length of the previous longest prefix suffix
+	int len = 0;
+	lps[0] = 0; // lps[0] is always 0
+	// the loop calculates lps[i] for i = 1 to M-1
+	int i = 1;
+	while (i < M) {
+		if (pat[i] == pat[len]) {
+			len++;
+			lps[i] = len;
+			i++;
+		}
+		else{ // (pat[i] != pat[len]){
+			// This is tricky. Consider the example.AAACAAAA and i = 7. The idea is similar to search step.
+			if (len != 0) {
+				len = lps[len - 1];
+				// Also, note that we do not increment i here
+			}
+			else{ // if (len == 0){
+				lps[i] = 0;
+				i++;
+			}
+		}
+	}
+}
+int main(){
+    /*
+    DNA                pattern
+    ACGTTCCACGTTCA---->ACGTT
+    ACGTTCCACGTTCA---->CGTTC
+    ACGTTCCACGTTCA---->TTCCA
+    ACGTTCCACGTTCA---->TCCAC
+    ACGTTCCACGTTCA---->CCACG
+    ACGTTCCACGTTCA---->CACGT
+    ACGTTCCACGTTCA---->ACGTT
+    ACGTTCCACGTTCA---->CGTTC
+    ACGTTCCACGTTCA---->GTTCA
+    */
+	char txt[] = "AGGTTCCACGTTCA";
+	char pat[] = "ACGTT";
+	KMPSearch(pat, txt);
+	return 0;
+}
+**************************************************************************************************************************************************************************
+/* C++ Program for Bad Character Heuristic of Boyer Moore String Matching Algorithm */
+#include <bits/stdc++.h>
+using namespace std;
+# define NO_OF_CHARS 256
+
+// The preprocessing function for Boyer Moore's bad character heuristic
+void badCharHeuristic( string str, int size,int badchar[NO_OF_CHARS]){
+	int i;
+	// Initialize all occurrences as -1
+	for (i = 0; i < NO_OF_CHARS; i++)
+		badchar[i] = -1;
+	// Fill the actual value of last occurrence of a character
+	for (i = 0; i < size; i++)
+		badchar[(int) str[i]] = i;
+}
+void search( string txt, string pat){
+	int m = pat.size();
+	int n = txt.size();
+
+	int badchar[NO_OF_CHARS];
+	badCharHeuristic(pat, m, badchar);
+
+	int s = 0; // s is shift of the pattern with respect to text
+	while(s <= (n - m)){
+		int j = m - 1;
+		while(j >= 0 && pat[j] == txt[s + j])
+			j--;
+		if (j < 0){
+			cout << "pattern occurs at shift = " << s << endl;
+			s += (s + m < n)? m-badchar[txt[s + m]] : 1;
+		}
+		else{
+		    s += max(1, j - badchar[txt[s + j]]);
+		}
+			
+	}
+}
+int main(){
+    string txt,pat;
+	// ABAAABCD    ABC
+	cout<<"enter a string"<<endl;
+	cin>>txt;
+	cout<<"enter pattern"<<endl;
+	cin>>pat;
+	search(txt, pat);
+	return 0;
+}
+******************************************************************************************************************************************************************************
+/* C++ program for Boyer Moore Algorithm with Good Suffix heuristic to find pattern in given text string */
+#include <bits/stdc++.h>
+using namespace std;
+ // strong good suffix implementation
+ void preprocess_strong_suffix(int* shift, int* bopos,char* pattern, int m){
+     int i = m, j = m + 1; // length of pattern is m
+     bopos[i] = j;
+     while (i > 0) {
+         while (j <= m && pattern[i - 1] != pattern[j - 1]){ // if not equal continue to find border
+            if (shift[j] == 0) /* No shifting of characters*/       
+                shift[j] = j - i;
+    /* Characters before the occurrence of T in pattern P are different than the mismatching character in P */
+            j = bopos[j]; //Change the position of next border
+         }
+         i--;
+         j--; /* store the beginning position of border when border found*/
+         bopos[i] = j;
+     }
+ }
+ void preprocess_case2(int* shift, int* bopos,char* pat, int m){ // case 2 Preprocessing
+     int i, j;
+     j = bopos[0];
+     for (i = 0; i <= m; i++) {
+         if (shift[i] == 0)
+             shift[i] = j;
+         if (i == j) /* here the suffix became smaller than bopos[0] */
+             j = bopos[j]; // j will be used as next wider border
+     }
+ }
+ void good_suffix_algo(char* text, char* pattern){ // Implement good suffix algo
+     int s = 0, j; // s is shift of pattern w.r.t text
+     int m = strlen(pattern);
+     int n = strlen(text);
+     int bopos[m + 1], shift[m + 1];
+     for (int i = 0; i < m + 1; i++)
+         shift[i] = 0; // initially all shifts are 0
+     preprocess_strong_suffix(shift, bopos, pattern, m); // preprocess the pattern
+     preprocess_case2(shift, bopos, pattern, m); // case 2 Preprocessing
+     while (s <= n - m) {
+         j = m - 1;
+         while (j >= 0 && pattern[j] == text[s + j]) /* j reduces while text and pattern characters keep matching at s shift*/
+             j--;
+         if (j < 0){ // Pattern present at current shift makes j < 0
+             cout << "Pattern found at shift = " << s << endl;
+             s += shift[0];
+         }
+         else{
+             /*pattern[i] != pattern[s+j] the pattern shifts j+1 times */
+             s += shift[j + 1];
+         }
+     }
+ }
+int main(){
+     char text[] = "ABAAAABAACD";
+     char pattern[] = "ABA";
+     good_suffix_algo(text, pattern);
+     return 0;
+ } 
+***************************************************************************************************************************************************************************
